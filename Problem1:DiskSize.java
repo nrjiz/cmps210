@@ -7,8 +7,8 @@ a) Write a data structure that represents the directory-file tree.
 b) Write a traversal algorithm that traverses a directory-file tree and returns the total size of the content of
 the top-level directory on disk. Assume that the data of each directory requires a total of 1KB of disk
 storage*/
-
-public class node{
+import java.util.*;
+ class node{
   String name;
   boolean isFile;
   int size;
@@ -16,12 +16,12 @@ public class node{
 
 public node (String name, boolean isFile, int size){
   this.name=name;
-  this.isFile=isFIle;
+  this.isFile=isFile;
   this.size=size;
   children=new ArrayList<node>();
 }
 }
-public class tree{
+ class tree{
   node root;
   public tree(node root){
     this.root=root;
@@ -31,9 +31,9 @@ public class tree{
   }
   int getTotalSize(node root){
     if(root==null)return 0;
-    int size_ = root.isFile?node.size:0;
-    for (node child:child.children){
-        size_+=child.getTotalSize(child);
+    int size_ = root.isFile?root.size:0;
+    for (node child:root.children){
+        size_+=getTotalSize(child);
     }
     return size_;
   }
@@ -55,6 +55,9 @@ public class Main{
     direMain.children.add(dir2);
     
     tree os = new tree(direMain);    
+
+    int totalSize = os.getTotalSize();
+    System.out.println("Total size of top-level directory: " + totalSize + "KB");
   
   }
 }
